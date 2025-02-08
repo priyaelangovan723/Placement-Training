@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./filter.css";
 import * as XLSX from "xlsx";
 import '../Styles/Dashboard.css';
-import "./AdminRequests.css";
+// import "./AdminRequests.css";
 
 const Filter = () => {
     const generateSampleStudents = () => {
