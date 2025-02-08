@@ -121,9 +121,12 @@ const ViewFullreq = () => {
     };
     return (
         <>
-            <div className="content-container1">
-                <h1>View Full Requests</h1>
-                <div className="table-container1">
+            <div className="color-container">
+                <div className="form-container">
+
+
+                    <h1>View Full Requests</h1>
+
 
                     {user ? (
                         <table className="form-table">
@@ -151,14 +154,14 @@ const ViewFullreq = () => {
                                 <tr>
                                     <td className="label-cell" id="form-label">Uploaded Pdf file
 
-                                        
+
 
                                     </td>
                                     <div className="pdf-container">
-                                    <p id="doc-name">{data.pdf}</p>
-                                    <button className="form-btn2" onClick={showPdf}>
+                                        <p id="doc-name">{data.pdf}</p>
+                                        <button className="form-btn2" onClick={showPdf}>
                                             View Pdf
-                                    </button>
+                                        </button>
                                     </div>
 
 
@@ -174,8 +177,8 @@ const ViewFullreq = () => {
                 </div>
 
                 <div ><Link to="/admin/view-requests"><button className="form-btn" id="add-entry">Go Back</button></Link></div>
-
             </div>
+
         </>
     );
 };

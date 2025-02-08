@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
 import '../Styles/Dashboard.css';
-import './TrackRequest.css'
+import '../Styles/TrackRequest.css'
 import './YourRequests.css'
 
 
