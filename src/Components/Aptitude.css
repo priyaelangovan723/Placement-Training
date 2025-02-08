@@ -1,0 +1,51 @@
+.active {
+    height: 20px;
+    width: 80px;
+    background-color: green;
+    color: white;
+    
+}
+.completed {
+    height: 20px;
+    width: 80px;
+    background-color:rgb(14,120,220) ;
+    color: white;
+}
+
+.pending1{
+    height: 20px;
+    width: 80px;
+    background-color:#ffaa33 ;
+    color: white;
+}
+
+.reports{
+    height: 75px;
+    width: 125 rex;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+   
+}
+.attendance-reports{
+    height: 75px;
+    width: 200px;
+    margin-left: 250px;
+    
+}
+.assessment-reports{
+    height: 75px;
+    width: 200px;
+    
+    
+}
+.dwnld-btn{
+    margin-top: 20px;
+    background-color:rgb(14,120,220) ;
+    color: white;
+    height: 30px;
+    width: 175px;
+    border-radius: 10px;
+    border: none;
+}

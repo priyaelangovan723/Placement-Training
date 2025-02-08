@@ -1,0 +1,23 @@
+.view-full-request-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.view-full-request-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.view-full-request-container th,
+.view-full-request-container td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.view-full-request-container th {
+    background-color: #f0f0f0;
+}

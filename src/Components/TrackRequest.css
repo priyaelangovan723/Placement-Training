@@ -1,0 +1,64 @@
+.status{
+    margin-top: 7px;
+    height: 44px;
+    width: 82px;
+    background-color: aliceblue;
+    text-align: top;
+    /* padding: 20px; */
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px lightslategray;
+    color: white;
+}
+
+.approved{
+    height: 30px;
+    width: 80px;
+    background-color: rgb(14,120,220);
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0px;
+    
+}
+
+#status-text{
+    color:white;
+    text-rendering:optimizeLegibility;
+
+}
+
+.rejected{
+    height: 30px;
+    width: 80px;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0px;
+    
+}
+
+.pending{
+    height: 30px;
+    width: 80px;
+    background-color: #ffaa33;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0px;
+}
+
+.view-icon{
+    height: 0px;
+    width: 10px;
+    outline: none;
+    background-color: white;
+    border: none;
+    color: lightslategray;
+    font-size: 16px;
+  }
+  
+  .view-icon:hover{
+    cursor: pointer;
+    color: rgb(14,120,220);
+  }
