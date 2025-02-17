@@ -76,7 +76,7 @@
 
   .table1-container {
    
-   
+    /* width: 90vh; */
     overflow-y: auto; 
     background-color: white;
     border-radius: 10px;

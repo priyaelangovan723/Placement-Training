@@ -3,12 +3,13 @@ import SigninForm from "./Components/SigninForm";
 import { RouterProvider,createBrowserRouter } from "react-router-dom";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Dashboard from "./Components/Dashboard";
-
-
-import Sidebar from "./Components/Sidebar";
+import SigninAdmin from "./Components/Admin/SigninAdmin";
+import AdminLayout from "./Components/Admin/AdminLayout";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
+import AdminRequests from "./Components/Admin/AdminRequests";
 import Layout from "./Components/Layout";
 import RequestForm from "./Components/RequestForm";
-import YourRequests from "./Components/YourRequests";
+
 import TrackRequest from "./Components/TrackRequest";
 
 import UserViewRequests from "./Components/UserViewRequests";
@@ -35,7 +36,22 @@ const App = () => {
         {path:"/dashboard/filter", element: <Filter/>}
        
       ]
+    },
+    {
+      path : "/admin/signin",
+      element : <SigninAdmin/>
+    },
+    {
+      path : "/admin/",
+      element : <AdminLayout/>,
+      children: [
+        {path:"/admin/dashboard",element: <AdminDashboard/>},
+        {path:"/admin/view-requests", element: <AdminRequests/>}
+        
+      ]
+
     }
+
    
     
     
