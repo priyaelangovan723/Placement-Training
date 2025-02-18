@@ -87,6 +87,20 @@ html,body {
     cursor: pointer;
 }
 
+.form-btn2 {
+    width: 100%;
+    max-width: 200px;
+    height: 35px;
+    float: inline-end;
+    display: block;
+    background-color: rgb(14,120,220);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 input{
     outline: none;
 
@@ -140,6 +154,9 @@ input::file-selector-button{
     .form-btn {
         width: 100%;
     }
+    .form-btn2 {
+        width: 100%;
+    }
 
     .form-select,
 .form-input,
@@ -174,6 +191,10 @@ input::file-selector-button{
     .form-btn {
         width: 100%;
     }
+    .form-btn2 {
+        width: 100%;
+    }
+    
 
     .form-select,
 .form-input,

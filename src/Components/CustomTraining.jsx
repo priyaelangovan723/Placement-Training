@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./RequestForm.css";
 import { Link } from "react-router-dom";
 
-const RequestForm = () => {
+const CustomTraining = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -63,7 +63,7 @@ const RequestForm = () => {
     return (
         <div className="color-container">
             <div className="form-container">
-                <h1>Training Request Form</h1>
+                <h1>Custom Training Schedule</h1>
                 <form onSubmit={handleSubmit}>
                     <table className="form-table">
                         <tbody>
@@ -313,6 +313,34 @@ const RequestForm = () => {
                                 </tr>
 
                             )}
+                              <tr>
+                                    <td className="label-cell">Upload Filtered Students</td>
+                                    <td>
+                                        <input
+                                            type="file"
+                                            name="Filtered Details"
+                                            accept="application/pdf"
+                                            onChange={handleChange}
+                                            
+
+                                        />
+                                        {errors["Apex Details"] && (
+                                            <div className="error">{errors["Apex Details"]}</div>
+                                        )}
+                                        <Link to='/dashboard/filter'>
+                                        <p>
+                                            Filter Students here!
+                                        </p>
+                                        </Link>
+                                    </td>
+                                    {/* <td>
+                                        <Link to='/dashboard/filter'>
+                                        <p>
+                                            Filter Students here!
+                                        </p>
+                                        </Link>
+                                    </td> */}
+                                </tr>
 
 
                         </tbody>
@@ -324,18 +352,10 @@ const RequestForm = () => {
                         </button>
 
                     </div>
-                    <div>
-                        <Link to= '/dashboard/CustomTraining'>
-                        <button type="submit" className="form-btn2"  >
-                            Custom Training
-                        </button>
-                        </Link>
-
-                    </div>
                 </form>
             </div>
         </div>
     );
 };
 
-export default RequestForm;
+export default CustomTraining;

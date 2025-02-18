@@ -18,6 +18,7 @@ import Aptitude from "./Components/Aptitude";
 import Filter from "./Components/Filter";
 import AdminViewReq from "./Components/Admin/AdminViewReq";
 import AdminOngoing from "./Components/Admin/AdminOngoing";
+import CustomTraining from "./Components/CustomTraining";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -35,6 +36,7 @@ const App = () => {
         {path:"/dashboard/view-full-req/",element:<UserViewRequests/>},
         {path:"/dashboard/ongoing", element: <Ongoing/>},
         {path:"/dashboard/aptitude", element: <Aptitude/>},
+        {path:"/dashboard/CustomTraining", element: <CustomTraining/>},
         {path:"/dashboard/filter", element: <Filter/>}
        
       ]
