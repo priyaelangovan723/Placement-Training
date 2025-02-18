@@ -17,7 +17,8 @@ const SigninAdmin = () => {
   };
   const admin1 = [
     {email: "dharanipriya647@gmail.com", name: "priya"},
-    {email: "priyaelango285@gmail.com",name: "priya1"}
+    {email: "priyaelango285@gmail.com",name: "priya1"},
+    {email:"ragul.se21@bitsathy.ac.in",name:"ragul"}
   ]
     
   if (userData) {
