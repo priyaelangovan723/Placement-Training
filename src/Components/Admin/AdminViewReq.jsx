@@ -1,22 +1,53 @@
 import React, { useEffect, useState } from "react";
-import '../../Styles/AdminRequests.css'
-import '../../Styles/Dashboard.css'
+import { useLocation } from "react-router-dom";
+import '../../Styles/Dashboard.css';
+import '../RequestForm.css';
+import { Link } from "react-router-dom";
+import '../UserViewRequests.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faEye } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router";
-import '../../Styles/TrackRequest.css'
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
-const AdminRequests = () => {
-    const navigate = useNavigate()
-    const [requests, setRequests] = useState([])
-    const [currentPage, setCurrentPage] = useState(1);
-    const [items, setItems] = useState([])
-    const [searchValue, setSearchValue] = useState('');
-    const [remarksValue, setRemarksValue] = useState({});
-    const [selectedRequestId, setSelectedRequestId] = useState(null);
-    const itemsPerPage = 10;
+const AdminViewReq = () => {
+    const location = useLocation();
+    const { id } = location.state || {}; // Retrieve the ID passed via navigate
+    const [requestDetails, setRequestDetails] = useState(null);
+    const [trainingStatus, setTrainingStatus] = useState("");
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [selectedVenue, setSelectedVenue] = useState(null);
+    const [updatedVenue, setUpdatedVenue] = useState("");
+
+    const handleEditClick = () => {
+        setDropdownVisible(!isDropdownVisible);
+         // Toggle dropdown visibility
+    };
+
+    const handleVenueChange = (venue) => {
+        setSelectedVenue(venue);  // Set the selected venue
+
+    };
+
+    const handleSubmit = () => {
+        // Here, handle the submission of the new venue selection
+        setUpdatedVenue(selectedVenue);
+        console.log("Venue changed to:", selectedVenue);
+        setDropdownVisible(false);  // Hide the dropdown after change
+    };
+
     useEffect(() => {
-        const initialData = [
+        if (id) {
+            fetchRequestDetails(id);
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (requestDetails && requestDetails["Venue Details"]) {
+            setSelectedVenue(requestDetails["Venue Details"]); // Initialize selectedVenue once requestDetails is fetched
+        }
+    }, [requestDetails]);
+
+
+    const fetchRequestDetails = (id) => {
+        const requests = [
             {
                 "ID": 101,
                 "Title": "Advanced Python Training",
@@ -45,8 +76,8 @@ const AdminRequests = () => {
                 "Training Status": " ",
                 "Trainer ID": "T1002",
                 "Duration": "30",
-                "Apex Details":"Tech University.pdf",
-                "Vendor Name" : "Tech University",
+                "Apex Details": "Tech University.pdf",
+                "Vendor Name": "Tech University",
                 "Domain": "Data Science",
                 "Venue Details": "Tech Hall 2",
                 "Submitted On": "2/1/2024, 9:30:00 AM",
@@ -64,8 +95,8 @@ const AdminRequests = () => {
                 "Training Status": "Completed",
                 "Trainer ID": "T1003",
                 "Duration": "32",
-                "Apex Details":"Future Labs.pdf",
-                "Vendor Name" : "Future Labs Tech",
+                "Apex Details": "Future Labs.pdf",
+                "Vendor Name": "Future Labs Tech",
                 "Domain": "Artificial Intelligence",
                 "Venue Details": "Tech Research Auditorium",
                 "Submitted On": "12/20/2023, 11:45:00 AM",
@@ -84,8 +115,8 @@ const AdminRequests = () => {
                 "Trainer ID": "T1004",
                 "Duration": "30",
                 "Domain": "Web Development",
-                "Apex Details":"",
-                "Vendor Name" : " ",
+                "Apex Details": "",
+                "Vendor Name": " ",
                 "Venue Details": "Web Dev Lab 1",
                 "Submitted On": "2/15/2024, 10:15:00 AM",
                 "Request Status": "Pending",
@@ -103,8 +134,8 @@ const AdminRequests = () => {
                 "Trainer ID": "T1005",
                 "Duration": "28",
                 "Domain": "Machine Learning",
-                "Apex Details":"Tech Institute.pdf",
-                "Vendor Name" : "Tech Institute",
+                "Apex Details": "Tech Institute.pdf",
+                "Vendor Name": "Tech Institute",
                 "Venue Details": "Innovation Hall",
                 "Submitted On": "1/10/2024, 11:00:00 AM",
                 "Request Status": "Approved",
@@ -315,191 +346,73 @@ const AdminRequests = () => {
                 "Remarks": " ",
                 "View": "Link to cloud management course"
             }
+
+
         ];
+        const request = requests.find((req) => req.ID === id);
 
-        setRequests(initialData)
-        setItems(initialData)
-    }, [])
-
-    const handleApprove = (id) => {
-        const updatedRequests = requests.map(request => {
-            if (request['ID'] === id) {
-                return { ...request, "Request Status": "Approved" };
-            }
-            return request;
-        });
-        console.log(updatedRequests)
-        setRequests(updatedRequests)
-    };
-
-
-    const handleReject = (id) => {
-        const updatedRequests = requests.map(request => {
-            if (request['ID'] === id) {
-                return { ...request, "Request Status": "Rejected" };
-            }
-            return request;
-        });
-        console.log(updatedRequests)
-        setRequests(updatedRequests)
-    };
-
-    const handleRemarksChange = (id, value) => {
-        console.log(id, value)
-        setRemarksValue({ ...remarksValue, [id]: value });
-        console.log(remarksValue[id])
-    };
-
-    const handleSubmitRemarks = (id) => {
-        setSelectedRequestId(id)
-        if (selectedRequestId !== null) {
-
-            const updatedRequests = requests.map(request => {
-                if (request['ID'] === selectedRequestId) {
-                    return { ...request, "Remarks": remarksValue[id] };
-                }
-                return request;
-            });
-            setRequests(updatedRequests);
-            console.log(updatedRequests)
-            setRemarksValue('');
-            setSelectedRequestId(null);
+        if (request) {
+            setRequestDetails(request);
+        } else {
+            console.error("Request not found");
         }
     };
 
-    const searchfn = (e) => {
-        const getSearch = e.target.value;
-        setSearchValue(getSearch)
-
-        if (getSearch.length > 0) {
-            const filteredItems = items.filter((request) =>
-                String(request['ID']).includes(getSearch)
-            );
-            setRequests(filteredItems)
-        }
-        else {
-            setRequests(items)
-        }
+    if (!requestDetails) {
+        return <div>Loading request details...</div>;
     }
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-    const currentRequests = requests.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(items.length / itemsPerPage);
-
-
-
-    const paginate = (pageNumber) => {
-        if (pageNumber >= 1 && pageNumber <= totalPages) {
-            setCurrentPage(pageNumber);
-        }
-    };
-    const handleView = (id) => {
-        console.log(id, "button clicked")
-        navigate('/admin/view-full-request', { state: { "id": id } })
-    }
     return (
         <>
-            <div className="content-container">
-                <h1>Submitted Requests</h1>
-                <div className="search-bar">
-                    <FontAwesomeIcon icon={faSearch} />
+            <div className="content-container1">
+                <h1>View Full Requests</h1>
+                <div className="card-container1">
+                    <div className="card1">
+                        <h2>{requestDetails.Title}</h2>
+                        <p><strong>ID:</strong> {requestDetails.ID}</p>
+                        <p><strong>Resource:</strong> {requestDetails.Resource}</p>
+                        <p><strong>Start Date:</strong> {requestDetails["Start Date"]}</p>
+                        <p><strong>End Date:</strong> {requestDetails["End Date"]}</p>
+                        <p><strong>Description:</strong> {requestDetails.Description}</p>
+                        <p><strong>Trainer ID:</strong> {requestDetails["Trainer ID"]}</p>
+                        <p><strong>Duration:</strong> {requestDetails.Duration}</p>
+                        <div className="venue-container">
+                            <p><strong>Venue Details:</strong> {updatedVenue ? updatedVenue : selectedVenue}</p>
 
-                    <input placeholder="Search here" onChange={searchfn} value={searchValue}></input>
-                </div>
-                <div className="table1-container">
-                    <div className="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Resource</th>
-                                    <th>Domain</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Description</th>
-                                    <th>Trainer ID</th>
-                                    <th>Duration (in days)</th>
-                                    <th>Apex Details</th>
-                                    <th>Vendor Name</th>
-                                    <th>Venue Details</th>
-                                    <th>Submitted On</th>
-                                    <th>Request Status</th>
-                                    <th>Remarks</th>
-                                    <th>Training Status</th>
-                                    <th>View</th>
-                                </tr>
-                            </thead>
-                          
-                                {requests && currentRequests.map((request, index) => (
-                                    <>
-                                      <tbody id="requests-table-body" key={index}>
-                                    <tr>
-                                        <td>{request['ID']}</td>
-                                        <td>{request['Title']}</td>
-                                        <td>{request["Resource"]}</td>
-                                        <td>{request["Domain"]}</td>
-                                        <td>{request["Start Date"]}</td>
-                                        <td>{request["End Date"]}</td>
-                                        <td>{request["Description"]}</td>
-                                        <td>{request["Trainer ID"]}</td>
-                                        <td>{request["Duration"]}</td>
-                                        <td>{request["Apex Details"]}</td>
-                                        <td>{request["Vendor Name"]}</td>
-                                        <td>{request["Venue Details"]}</td>
-                                        <td>{request["Submitted On"]}</td>
-                                        
-                                        
-                                            <div className="status-admin">
-                                                {request["Request Status"] === "Pending" ?
-                                                    <>
-                                                        <button className="approve" onClick={() => handleApprove(request['ID'])}>Approve</button>
-                                                        <button className="reject" onClick={() => handleReject(request['ID'])}>Reject</button>
-                                                    </>
-                                                    : request["Request Status"] === "Approved" ?
-                                                        <span className="status-approved"><p>Approved</p></span> :
-                                                        <span className="status-rejected"><p>Rejected</p></span>
-                                                }
-                                            </div>
-                                        
-                                        <td>
-                                            {
-                                                request["Request Status"] === "Rejected" && request["Remarks"] === " " ?
-                                                    <>
-                                                        <input id="remarks" type="text" placeholder={request["Remarks"]} value={remarksValue[request["ID"]]} onChange={(e) => handleRemarksChange(request['ID'], e.target.value)} />
-                                                        <button id="submit-btn" onClick={() => handleSubmitRemarks(request['ID'])} >Submit</button>
-                                                    </>
-                                                    :
-                                                    <div>{request["Remarks"]}</div>
-                                            }
-                                        </td>
-                                        <td>{request["Training Status"]}</td>
-                                        <td>
-                                            <button className="view-icon" onClick={() => { handleView(request['ID']) }}><FontAwesomeIcon icon={faEye} /></button>
-                                        </td>
-                                    </tr>
-                                
-                            </tbody>
-                            </>
-                            ))}
-                        </table>
+                            <span className="edit-icon" onClick={handleEditClick}><FontAwesomeIcon icon={faPencil} /></span>
+                        </div>
+
+                        {/* Dropdown menu for venue change */}
+                        {isDropdownVisible && (
+                            <div className="dropdown-container">
+                                <select className="form-select"
+                                    value={selectedVenue}
+                                    onChange={(e) => handleVenueChange(e.target.value)}
+                                >
+                                    <option value="SF Seminar Hall-1">SF Seminar Hall-1</option>
+                                    <option value="SF Seminar Hall-2">SF Seminar Hall-2</option>
+                                    <option value="Seminar Hall-3">Seminar Hall-3</option>
+                                    <option value="ECE Seminar Hall">ECE Seminar Hall</option>
+                                    <option value="BIT Auditorium">BIT Auditorium</option>
+                                </select>
+                                <button className="form-btn" onClick={handleSubmit}>Change Details</button>
+                            </div>
+                        )}
+                        <p><strong>Request Status:</strong> {requestDetails["Request Status"]}</p>
+                        <p><strong>Remarks:</strong> {requestDetails.Remarks}</p>
+                        <p><a href="#">{requestDetails.View}</a></p>
                     </div>
                 </div>
 
-                <div className="pagination">
-                    <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} className={currentPage === 1 ? "disabled" : "prev"}>Previous</button>
 
-                    <span className="total-pages">{`Page ${currentPage} of ${totalPages}`}</span>
-                    <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages} className={currentPage === totalPages ? "disabled" : "next"}>Next</button>
+                <div>
+                    <Link to="/admin/view-requests">
+                        <button className="form-btn" >Back</button>
+                    </Link>
                 </div>
-
-
-
-
             </div>
-
         </>
-    )
-}
-export default AdminRequests
+    );
+};
+
+export default AdminViewReq;

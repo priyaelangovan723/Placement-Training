@@ -56,7 +56,7 @@ const Sidebar = () => {
                         <FontAwesomeIcon className="logo2" icon={faFileCircleCheck} />
                     </div>
                 </Link>
-
+                <br></br>
                 <Link to="/dashboard/ongoing">
                     <div className={`dashboard ${selectedItem === 'ongoing' ? 'selected' : ''}`} onClick={() => handleItemClick('ongoing')}>
                         <div className="dashboard-heading"><p><b>Ongoing Training</b></p></div>

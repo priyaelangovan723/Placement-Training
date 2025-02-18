@@ -12,6 +12,7 @@
 #status-text{
     color:white;
     text-rendering:optimizeLegibility;
+   
 
 }
 
@@ -202,4 +203,15 @@
     .pagination {
         width: 93%;
     }
+}
+
+@media (max-width: 1200px){
+  td:last-child, th:last-child {
+      min-width: 170px; /* Adjust based on your content */
+      
+  }
+
+  .pagination {
+      width: 95%;
+  }
 }

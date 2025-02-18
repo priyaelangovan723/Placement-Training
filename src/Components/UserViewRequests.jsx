@@ -10,6 +10,7 @@ const UserViewRequests = () => {
     const { id } = location.state || {}; // Retrieve the ID passed via navigate
     const [requestDetails, setRequestDetails] = useState(null);
     const [trainingStatus, setTrainingStatus] = useState("");
+    
 
     useEffect(() => {
         if (id) {
@@ -33,6 +34,77 @@ const UserViewRequests = () => {
                 "Request Status": "Approved",
                 "Remarks": "Successfully completed, all modules covered",
                 "View": "Link to course material"
+            },
+            {
+                "ID": 102,
+                "Title": "ReactJS Fundamentals",
+                "Resource": "Outside BIT",
+                "Start Date": "2024-03-05",
+                "End Date": "2024-03-20",
+                "Description": "A fundamental training on ReactJS to build interactive web interfaces.",
+                "Training Status": "In Progress",
+                "Trainer ID": "T1002",
+                "Duration": "15",
+                "Domain": " ",
+                "Apex Details": "Hybrid training with online and in-person sessions",
+                "Venue Details": "SF Seminar Hall -II",
+                "Submitted On": "2/10/2024, 2:20:15 PM", // Fixed timestamp
+                "Request Status": "Rejected",
+                "Remarks": "Insufficient Apex Details",
+                "View": "Link to current sessions"
+            },
+            {
+                "ID": 103,
+                "Title": "Backend Development with Node.js",
+                "Resource": "Inside BIT",
+                "Start Date": "2024-04-01",
+                "End Date": "2024-04-20",
+                "Description": "Training focused on backend development using Node.js and Express.js.",
+                "Training Status": "Not Started",
+                "Trainer ID": "T1003",
+                "Duration": "25",
+                "Domain": " ",
+                "Venue Details": "SF Seminar Hall -III",
+                "Submitted On": "3/5/2024, 9:30:45 AM", // Fixed timestamp
+                "Request Status": "Approved",
+                "Remarks": "Pre-training preparations are underway",
+                "View": "Link to upcoming sessions"
+            },
+            {
+                "ID": 104,
+                "Title": "Mobile App Development with Flutter",
+                "Resource": "Outside BIT",
+                "Start Date": "2024-06-01",
+                "End Date": "2024-06-15",
+                "Description": "Comprehensive training on developing mobile applications using the Flutter framework.",
+                "Training Status": "Not Started",
+                "Trainer ID": "T1004",
+                "Duration": "18",
+                "Domain": " ",
+                "Apex Details": "Self-paced learning with webinars for Q&A",
+                "Venue Details": "SF Seminar Hall - I",
+                "Submitted On": "4/10/2024, 11:05:30 AM", // Fixed timestamp
+                "Request Status": "Pending",
+                "Remarks": "Awaiting confirmation for trainer scheduling",
+                "View": "Link to course details"
+            },
+            {
+                "ID": 105,
+                "Title": "JavaScript ES6+ Features",
+                "Resource": "Outside BIT",
+                "Start Date": "2024-05-10",
+                "End Date": "2024-05-25",
+                "Description": "Training covering the latest features of JavaScript ES6+ for modern web development.",
+                "Training Status": "Completed",
+                "Trainer ID": "T1005",
+                "Duration": "28",
+                "Domain": " ",
+                "Apex Details": "Hands-on training with code examples and assignments",
+                "Venue Details": "ECE Seminar Hall",
+                "Submitted On": "4/25/2024, 8:15:00 AM", // Fixed timestamp
+                "Request Status": "Approved",
+                "Remarks": "Course completed with positive feedback from participants",
+                "View": "Link to feedback form"
             }
         ];
         const request = requests.find((req) => req.ID === id);

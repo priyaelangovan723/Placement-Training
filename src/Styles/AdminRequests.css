@@ -28,16 +28,7 @@
     cursor: pointer;
     margin-bottom: 10px;
 }
-.content-container {
-    margin: 20px;
-    max-width: 1100px;
-    border-radius: 10px; 
-    padding-top: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 0;
-    
-  }
+
   
   .table1-container {
    
@@ -102,50 +93,7 @@
     
     margin-top: 5px;
 }
-.pagination{
-  height: 40px;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0;
-  margin-bottom: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
 
-.prev,.next{
-  margin: 10px;
-  background-color: white;
-  border: none;
-  color:rgb(14,120,220) ;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.disabled{
-  margin: 10px;
-  background-color: white;
-  border: none;
-  color:lightslategray;
-  font-size: 15px;
-  cursor: not-allowed;
-}
-
-.prev:hover{
-  opacity: 0.8;
-
-}
-.next:hover{
-  opacity: 0.8;
-}
-
-.total-pages{
-  color: lightslategray;
-  font-size: 14px;
-}
 .search-bar input{
   height: 30px;
   width: 250px;

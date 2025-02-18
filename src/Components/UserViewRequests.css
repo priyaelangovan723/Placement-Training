@@ -83,6 +83,18 @@
     margin-top: 10px;
 }
 
+.venue-container {
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+    align-items: center; /* Vertically align the button and the text */
+    gap: 0px; /* Adds some space between the text and button */
+}
+
+.venue-container p {
+    margin: 0; /* Remove margin from the paragraph */
+}
+
 @media (max-width: 768px) {
     
     .card1 {

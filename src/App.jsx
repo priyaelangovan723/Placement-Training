@@ -16,6 +16,7 @@ import UserViewRequests from "./Components/UserViewRequests";
 import Ongoing from "./Components/Ongoing";
 import Aptitude from "./Components/Aptitude";
 import Filter from "./Components/Filter";
+import AdminViewReq from "./Components/Admin/AdminViewReq";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -46,7 +47,8 @@ const App = () => {
       element : <AdminLayout/>,
       children: [
         {path:"/admin/dashboard",element: <AdminDashboard/>},
-        {path:"/admin/view-requests", element: <AdminRequests/>}
+        {path:"/admin/view-requests", element: <AdminRequests/>},
+        {path:"/admin/view-full-request",element:<AdminViewReq/>}
         
       ]
 
