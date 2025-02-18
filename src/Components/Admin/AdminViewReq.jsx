@@ -377,7 +377,7 @@ const AdminViewReq = () => {
                         <p><strong>Trainer ID:</strong> {requestDetails["Trainer ID"]}</p>
                         <p><strong>Duration:</strong> {requestDetails.Duration}</p>
                         <div className="venue-container">
-                            <p><strong>Venue Details:</strong> {updatedVenue ? updatedVenue : selectedVenue}</p>
+                            <p><strong>Venue Details:</strong> {updatedVenue ? updatedVenue : requestDetails["Venue Details"]}</p>
 
                             <span className="edit-icon" onClick={handleEditClick}><FontAwesomeIcon icon={faPencil} /></span>
                         </div>
