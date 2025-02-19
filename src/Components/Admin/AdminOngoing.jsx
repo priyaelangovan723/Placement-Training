@@ -33,7 +33,7 @@ const externalCards = [
         <h2>Internal</h2>
         <div className="card-grid">
           {internalCards.map((item, index) => (
-            <Link to = '/dashboard/aptitude'>
+            <Link to = '/admin/aptitude'>
             <div key={index} className="card">
                  
                 <FontAwesomeIcon icon={item.icon} className='icon'/>

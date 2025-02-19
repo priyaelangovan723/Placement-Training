@@ -1,20 +1,20 @@
 .active {
     height: 20px;
-    width: 80px;
+    width: 150px;
     background-color: green;
     color: white;
     
 }
 .completed {
     height: 20px;
-    width: 80px;
+    width: 150px;
     background-color:rgb(14,120,220) ;
     color: white;
 }
 
 .pending1{
     height: 20px;
-    width: 80px;
+    width: 150px;
     background-color:#ffaa33 ;
     color: white;
 }
@@ -39,6 +39,14 @@
     width: 200px;
     
     
+}
+
+.attendance-reports:hover {
+    cursor: pointer;
+}
+
+.assessment-reports:hover {
+    cursor: pointer;
 }
 .dwnld-btn{
     margin-top: 20px;
