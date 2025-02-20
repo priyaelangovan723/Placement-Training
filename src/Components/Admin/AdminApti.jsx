@@ -126,37 +126,27 @@ const AdminApti = () => {
         setStudents(data);
         setFilteredStudents(data);
     };
-
     const searchfn = (e) => {
-        const getSearch = e.target.value.trim().toLowerCase();
+        const getSearch = e.target.value.toLowerCase();
         setSearchValue(getSearch);
-    
-        if (!getSearch) {
-            setFilteredStudents(students);
-            return;
-        }
-    
-        const filteredItems = students.reduce((acc, course) => {
-            const matchedStudents = course.students.filter(student =>
+
+        if (getSearch.length > 0) {
+            const filteredItems = filteredStudents.filter((course) =>
                 course.courseTitle.toLowerCase().includes(getSearch) ||
-                student.studentName.toLowerCase().includes(getSearch) ||
-                student["Roll No"].toLowerCase().includes(getSearch)
+                course.students.some(student => student["Roll No"].toLowerCase().includes(getSearch))
             );
-    
-            if (matchedStudents.length > 0) {
-                acc.push({ ...course, students: matchedStudents });
-            }
-    
-            return acc;
-        }, []);
-    
-        setFilteredStudents(filteredItems);
+            setStudents(filteredItems);
+        } else {
+            setStudents(filteredStudents); // Reset to original data
+        }
     };
-    
+
+
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const totalPages = Math.ceil(students.length / itemsPerPage);
-    
+
     const paginate = (pageNumber) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber);
@@ -165,7 +155,7 @@ const AdminApti = () => {
 
     const downloadExcel = (type) => {
         let dataToExport = [];
-    
+
         filteredStudents.forEach(course => {
             course.students.forEach(student => {
                 if (type === 'attendance') {
@@ -204,13 +194,13 @@ const AdminApti = () => {
                 }
             });
         });
-    
+
         const ws = XLSX.utils.json_to_sheet(dataToExport);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, type === 'attendance' ? "Attendance Report" : "Assessment Report");
         XLSX.writeFile(wb, `${type}-report.xlsx`);
     };
-    
+
     return (
         <div className="content-container">
             <h1>Track Students Enrolled in Courses</h1>
@@ -220,12 +210,12 @@ const AdminApti = () => {
                     <button className="dwnld-btn" onClick={() => downloadExcel('attendance')}>Download Attendance Report</button>
                 </div>
                 <div className="assessment-reports">
-                    <button className="dwnld-btn"  onClick={() => downloadExcel('assessment')}>Download Asessment Report</button>
+                    <button className="dwnld-btn" onClick={() => downloadExcel('assessment')}>Download Asessment Report</button>
                 </div>
             </div>
             <div className="search-bar">
                 <FontAwesomeIcon icon={faSearch} />
-                <input placeholder="Search by course or student name" onChange={searchfn} value={searchValue} />
+                <input placeholder="Search by course or student Roll No" onChange={searchfn} value={searchValue} />
             </div>
             <div className="table1-container">
                 <table>
@@ -258,13 +248,18 @@ const AdminApti = () => {
                                     </td>
                                     <td>{student.contactInfo.email}</td>
                                     <td>{student.contactInfo.phone}</td>
-                                    <td>{student.attendancePercentage}%</td>
+                                    <td className={student.attendancePercentage < 80 ? 'low-attendance' : 'green'}>
+                                        {student.attendancePercentage}%
+                                    </td>
+
                                     <td>
                                         {student.assessments.map(test => (
                                             <p key={test.testDate}>{test.testDate}: {test.score}</p>
                                         ))}
                                     </td>
-                                    <td>{student.averageScore}</td>
+                                    <td className={student.averageScore < 50 ? 'low-score' : 'green'}>
+                                        {student.averageScore}
+                                    </td>
                                 </tr>
                             ))
                         )}

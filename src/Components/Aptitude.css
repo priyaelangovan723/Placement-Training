@@ -57,3 +57,14 @@
     border-radius: 10px;
     border: none;
 }
+
+.low-attendance {
+    background-color: rgb(238, 84, 84);
+    color: white;
+    
+}
+
+.green {
+    background-color: green;
+    color: white;
+}
