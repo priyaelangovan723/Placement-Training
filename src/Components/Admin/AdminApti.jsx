@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
 import * as XLSX from 'xlsx';
+
 import '../../Styles/Dashboard.css';
 import '../../Styles/TrackRequest.css'
 import '../YourRequests.css'
@@ -153,53 +154,87 @@ const AdminApti = () => {
         }
     };
 
-    const downloadExcel = (type) => {
-        let dataToExport = [];
+    
 
-        filteredStudents.forEach(course => {
-            course.students.forEach(student => {
-                if (type === 'attendance') {
-                    student.attendance.forEach(att => {
-                        dataToExport.push({
-                            "Course ID": course.courseID,
-                            "Course Title": course.courseTitle,
-                            "Student Roll No": student["Roll No"],
-                            "Student Name": student.studentName,
-                            "Status": student.status,
-                            "Email": student.contactInfo.email,
-                            "Phone": student.contactInfo.phone,
-                            "Date": att.date,
-                            "FN1": att.FN1,
-                            "FN2": att.FN2,
-                            "AN1": att.AN1,
-                            "AN2": att.AN2,
-                            "Overall Attendance %": student.attendancePercentage
-                        });
+
+
+const downloadExcel = (type) => {
+    let dataToExport = [];
+
+    filteredStudents.forEach(course => {
+        course.students.forEach(student => {
+            if (type === 'attendance') {
+                student.attendance.forEach(att => {
+                    dataToExport.push({
+                        "Course ID": course.courseID,
+                        "Course Title": course.courseTitle,
+                        "Student Roll No": student["Roll No"],
+                        "Student Name": student.studentName,
+                        "Status": student.status,
+                        "Email": student.contactInfo.email,
+                        "Phone": student.contactInfo.phone,
+                        "Date": att.date,
+                        "FN1": att.FN1,
+                        "FN2": att.FN2,
+                        "AN1": att.AN1,
+                        "AN2": att.AN2,
+                        "Overall Attendance %": parseFloat(student.attendancePercentage)
                     });
-                } else if (type === 'assessment') {
-                    student.assessments.forEach(test => {
-                        dataToExport.push({
-                            "Course ID": course.courseID,
-                            "Course Title": course.courseTitle,
-                            "Student Roll No": student["Roll No"],
-                            "Student Name": student.studentName,
-                            "Status": student.status,
-                            "Email": student.contactInfo.email,
-                            "Phone": student.contactInfo.phone,
-                            "Date": test.testDate,
-                            "Assessment Score": test.score,
-                            "Overall Assessment %": student.averageScore
-                        });
+                });
+            } else if (type === 'assessment') {
+                student.assessments.forEach(test => {
+                    dataToExport.push({
+                        "Course ID": course.courseID,
+                        "Course Title": course.courseTitle,
+                        "Student Roll No": student["Roll No"],
+                        "Student Name": student.studentName,
+                        "Status": student.status,
+                        "Email": student.contactInfo.email,
+                        "Phone": student.contactInfo.phone,
+                        "Date": test.testDate,
+                        "Assessment Score": test.score,
+                        "Overall Assessment %": parseFloat(student.averageScore)
                     });
-                }
-            });
+                });
+            }
         });
+    });
 
-        const ws = XLSX.utils.json_to_sheet(dataToExport);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, type === 'attendance' ? "Attendance Report" : "Assessment Report");
-        XLSX.writeFile(wb, `${type}-report.xlsx`);
-    };
+    // Create worksheet
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+
+    // Get column for "Overall Attendance %" or "Overall Assessment %"
+    const colLetter = type === 'attendance' ? "L" : "J"; // L = Attendance %, J = Assessment %
+
+    // Get range of data
+    const range = XLSX.utils.decode_range(ws["!ref"]);
+
+    // Apply conditional formatting manually
+    for (let R = range.s.r + 1; R <= range.e.r; ++R) { // Skip header
+        const cellRef = `${colLetter}${R + 1}`;
+        const cell = ws[cellRef];
+
+        if (cell && cell.v !== undefined) {
+            const value = parseFloat(cell.v);
+            if ((type === 'attendance' && value < 80) || (type === 'assessment' && value < 50)) {
+                cell.s = {
+                    fill: { fgColor: { rgb: "FF0000" } }, // Red background
+                    font: { bold: true, color: { rgb: "FFFFFF" } } // White bold text
+                };
+            }
+        }
+    }
+
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, type === 'attendance' ? "Attendance Report" : "Assessment Report");
+
+    // Export with styles preserved
+    XLSX.writeFile(wb, `${type}-report.xlsx`);
+};
+
+    
+    
 
     return (
         <div className="content-container">

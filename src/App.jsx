@@ -20,6 +20,7 @@ import AdminViewReq from "./Components/Admin/AdminViewReq";
 import AdminOngoing from "./Components/Admin/AdminOngoing";
 import CustomTraining from "./Components/CustomTraining";
 import AdminApti from "./Components/Admin/AdminApti";
+import Analytics from "./Components/Admin/Analytics";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -54,7 +55,8 @@ const App = () => {
         {path:"/admin/view-requests", element: <AdminRequests/>},
         {path:"/admin/view-full-request",element:<AdminViewReq/>},
         {path:"/admin/Ongoing", element : <AdminOngoing/>},
-        {path:"/admin/aptitude",element: <AdminApti/>}
+        {path:"/admin/aptitude",element: <AdminApti/>},
+        {path:"/admin/analytics",element:<Analytics/>}
         
       ]
 

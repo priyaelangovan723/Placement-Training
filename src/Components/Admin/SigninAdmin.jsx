@@ -40,6 +40,7 @@ const SigninAdmin = () => {
     <div className="container">
       <div className="signin-container">
         <h2>Placement Training Management</h2>
+        <div className="spacer"></div>
         <GoogleLogin 
           onSuccess={handleSuccess}
           onError={() => { console.error("Failed to login") }}
@@ -49,7 +50,10 @@ const SigninAdmin = () => {
           //   </button>
           // )}
         />
+      
        <p>Sign in with your BIT account</p>
+       <div className="spacer"></div>
+       
        
       </div>
       </div>
