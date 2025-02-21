@@ -267,7 +267,7 @@ const Analytics = () => {
                 <button className="apply-button" onClick={generateExcelReport}>Generate Report</button>
             </div>
 
-            <div className="table-wrapper">
+            <div >
                 <div className="training-table-container">
                     <table className="training-table">
                         <thead>
